@@ -25,5 +25,8 @@ module Rex
       @next_order = nil
     end
 
+    def filled?
+      remaining_amount == 0
+    end
   end
 end
