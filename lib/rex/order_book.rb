@@ -2,7 +2,7 @@ require "rbtree"
 
 module Rex
   class OrderBook
-    def initialize()
+    def initialize
       @sell_side = tree_with_limit_default
       @buy_side = tree_with_limit_default
     end
@@ -17,7 +17,6 @@ module Rex
       side[order.price].add_order(order)
     end
 
-
     def cancel_order(order_id)
     end
 
@@ -25,7 +24,7 @@ module Rex
 
     def tree_with_limit_default
       tree = RBTree.new
-      tree.default_proc = -> (tree, key) { tree[key] = Limit.new(key) }
+      tree.default_proc = ->(tree, key) { tree[key] = Limit.new(key) }
       tree
     end
   end

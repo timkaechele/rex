@@ -14,7 +14,7 @@ module Rex
     def pop_first_order
       order = @first_order
       @first_order = @first_order.next_order
-      if @first_order == nil
+      if @first_order.nil?
         @last_order = nil
       end
 
@@ -25,11 +25,10 @@ module Rex
     def add_order(order)
       if empty?
         @first_order = order
-        @last_order = order
       else
         @last_order.next_order = order
-        @last_order = order
       end
+      @last_order = order
       @order_count += 1
     end
 
