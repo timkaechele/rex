@@ -1,6 +1,13 @@
 # frozen_string_literal: true
 
 require "rex"
+require 'factory_bot'
+Dir[
+  File.join(
+    File.expand_path("../support", __FILE__),
+    "**",
+    "*.rb"
+  )].sort.each { |f| require f }
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
