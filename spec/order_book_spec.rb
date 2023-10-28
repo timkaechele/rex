@@ -4,12 +4,18 @@ RSpec.describe Rex::OrderBook do
   let(:instance) { described_class.new }
 
   describe "#add_order" do
-    let(:order_a) { build(:order, is_buy: true, price: 100) }
+    let(:order_a) { build(:order, id: nil, is_buy: true, price: 100) }
+    let(:order_b) { build(:order, id: nil, is_buy: true, price: 101) }
 
     it "adds the order to the order book" do
       instance.add_order(order_a)
 
       expect(instance.best_buy_price).to eq(100)
+    end
+
+    it "assigns an order id" do
+      expect { instance.add_order(order_a) }.to change(order_a, :id).from(nil).to(1)
+      expect { instance.add_order(order_b) }.to change(order_b, :id).from(nil).to(2)
     end
 
     context "with multiple orders at the same price" do

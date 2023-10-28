@@ -10,10 +10,12 @@ module Rex
       @buy_side = RBTree.new
       @order_ids = {} # order_id => order
       @current_trade_id = 0
+      @current_order_id = 0
     end
 
     def add_order(order)
       side = side_for_order(order)
+      order.id = next_order_id
 
       side[order.price] ||= Limit.new(order.price)
       side[order.price].add_order(order)
@@ -65,6 +67,10 @@ module Rex
     private
 
     attr_reader :order_ids, :buy_side, :sell_side
+
+    def next_order_id
+      @current_order_id += 1
+    end
 
     def side_for_order(order)
       if order.is_buy
