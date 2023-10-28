@@ -7,5 +7,6 @@ FactoryBot.define do
     sequence(:is_buy) { |i| (i % 2).zero? }
     sequence(:price) { 100 }
     sequence(:amount) { 20 }
+    remaining_amount { amount }
   end
 end

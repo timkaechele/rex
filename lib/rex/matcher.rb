@@ -28,6 +28,8 @@ module Rex
 
         return trades if highest_buy_order.nil? || lowest_sell_order.nil?
       end
+
+      trades
     end
 
     private
