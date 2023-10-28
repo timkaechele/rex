@@ -2,7 +2,9 @@
 
 require "simplecov"
 
-SimpleCov.start
+SimpleCov.start do
+  enable_coverage :branch
+end
 require "rex"
 
 Dir[

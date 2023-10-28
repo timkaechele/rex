@@ -85,6 +85,14 @@ RSpec.describe Rex::OrderBook do
     end
   end
 
+  describe "#best_sell_price" do
+    context "when the order book is empty" do
+      it "returns nil" do
+        expect(instance.best_sell_price).to eq(nil)
+      end
+    end
+  end
+
   describe "#lowest_sell_Order" do
     context "when there is nothing in the book" do
       it "returns nil " do
@@ -101,11 +109,31 @@ RSpec.describe Rex::OrderBook do
       instance.add_order(buy_order)
     end
 
+    context "when the order id is unknown" do
+      it "returns nil" do
+        expect(instance.cancel_order(-1)).to eq(nil)
+      end
+    end
+
     context "when it is the last order for the given price" do
       it "removes the order from the side" do
         instance.cancel_order(buy_order.id)
 
         expect(instance.best_buy_price).to eq(nil)
+      end
+    end
+
+    context "when it is not the last order for the given price" do
+      let(:another_buy_order) { build(:order, is_buy: true, price: 100) }
+
+      before do
+        instance.add_order(another_buy_order)
+      end
+
+      it "removes the order from the side" do
+        instance.cancel_order(buy_order.id)
+
+        expect(instance.best_buy_price).to eq(100)
       end
     end
 
