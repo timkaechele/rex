@@ -9,7 +9,6 @@ RSpec.describe Rex::Matcher do
     let(:cheaper_sell_order) { build(:order, price: 99, is_buy: false, amount: 50, remaining_amount: 50) }
     let(:pricier_sell_order) { build(:order, price: 100, is_buy: false, amount: 70, remaining_amount: 70) }
 
-
     context "when order book has unmatched orders" do
       before do
         order_book.add_order(buy_order)

@@ -49,6 +49,28 @@ RSpec.describe Rex::OrderBook do
     end
   end
 
+  describe "add_and_match_order" do
+    context "when matcher is given" do
+      let(:matcher) { instance_double(Rex::Matcher) }
+      let(:instance) { described_class.new(matcher: matcher) }
+      let(:order) { build(:order, is_buy: true, price: 100) }
+
+      before do
+        allow(matcher).to receive(:match).with(instance)
+      end
+
+      it "adds the order" do
+        expect(instance).to receive(:add_order).with(order)
+        instance.add_and_match_order(order)
+      end
+
+      it "calls the matcher" do
+        expect(matcher).to receive(:match).with(instance)
+        instance.add_and_match_order(order)
+      end
+    end
+  end
+
   describe "#highest_buy_order" do
     context "when there is nothing in the book" do
       it "returns nil " do
@@ -96,7 +118,7 @@ RSpec.describe Rex::OrderBook do
   end
 
   describe "#next_trade_id" do
-    it 'returns an increasing trade id' do
+    it "returns an increasing trade id" do
       expect(instance.next_trade_id).to eq(1)
       expect(instance.next_trade_id).to eq(2)
       expect(instance.next_trade_id).to eq(3)

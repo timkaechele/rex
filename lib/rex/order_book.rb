@@ -2,7 +2,10 @@ require "rbtree"
 
 module Rex
   class OrderBook
-    def initialize
+    class NoMatcherProvidedError < StandardError; end
+
+    def initialize(matcher: Matcher.new)
+      @matcher = matcher
       @sell_side = RBTree.new
       @buy_side = RBTree.new
       @order_ids = {} # order_id => order
@@ -15,6 +18,11 @@ module Rex
       side[order.price] ||= Limit.new(order.price)
       side[order.price].add_order(order)
       order_ids[order.id] = order
+    end
+
+    def add_and_match_order(order)
+      add_order(order)
+      @matcher.match(self)
     end
 
     def remove_order(order_id)
