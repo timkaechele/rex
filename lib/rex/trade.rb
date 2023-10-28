@@ -4,7 +4,7 @@ module Rex
       :id,
       :buy_order,
       :sell_order,
-      :amount,
+      :quantity,
       :price
     )
 
@@ -12,7 +12,7 @@ module Rex
       @id = attributes[:id]
       @buy_order = attributes[:buy_order]
       @sell_order = attributes[:sell_order]
-      @amount = attributes[:amount]
+      @quantity = attributes[:quantity]
       @price = attributes[:price]
     end
   end

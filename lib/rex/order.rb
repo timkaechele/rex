@@ -5,10 +5,10 @@ module Rex
       :is_buy,
       :price,
       :user_id,
-      :amount,
+      :quantity,
       :previous_order,
       :next_order,
-      :remaining_amount
+      :remaining_quantity
     )
 
     def initialize(attrs = {})
@@ -17,15 +17,15 @@ module Rex
       @user_id = attrs[:user_id]
       @price = attrs[:price]
       @is_buy = attrs[:is_buy]
-      @amount = attrs[:amount]
-      @remaining_amount = attrs[:amount]
+      @quantity = attrs[:quantity]
+      @remaining_quantity = attrs[:quantity]
 
       @next_order = nil
       @previous_order = nil
     end
 
     def filled?
-      remaining_amount == 0
+      remaining_quantity == 0
     end
   end
 end

@@ -7,15 +7,15 @@ module Rex
       return trades if highest_buy_order.nil? || lowest_sell_order.nil?
 
       while highest_buy_order.price >= lowest_sell_order.price
-        max_amount = [highest_buy_order.remaining_amount, lowest_sell_order.remaining_amount].min
-        highest_buy_order.remaining_amount -= max_amount
-        lowest_sell_order.remaining_amount -= max_amount
+        max_quantity = [highest_buy_order.remaining_quantity, lowest_sell_order.remaining_quantity].min
+        highest_buy_order.remaining_quantity -= max_quantity
+        lowest_sell_order.remaining_quantity -= max_quantity
 
         trades << Trade.new(
           id: order_book.next_trade_id,
           buy_order: highest_buy_order,
           sell_order: lowest_sell_order,
-          amount: max_amount,
+          quantity: max_quantity,
           price: lowest_sell_order.price
         )
 
