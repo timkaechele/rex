@@ -12,3 +12,5 @@ gem "rspec", "~> 3.0"
 gem "standard", "~> 1.3"
 
 gem "factory_bot", "~> 6.3"
+
+gem "simplecov", "~> 0.22.0", require: false

@@ -1,7 +1,10 @@
 # frozen_string_literal: true
 
+require "simplecov"
+
+SimpleCov.start
 require "rex"
-require 'factory_bot'
+
 Dir[
   File.join(
     File.expand_path("../support", __FILE__),
