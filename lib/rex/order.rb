@@ -1,16 +1,14 @@
 module Rex
   class Order
     attr_accessor(
-      :next_order,
-      :remaining_amount
-    )
-
-    attr_reader(
       :id,
       :is_buy,
       :price,
       :user_id,
-      :amount
+      :amount,
+      :previous_order,
+      :next_order,
+      :remaining_amount
     )
 
     def initialize(attrs = {})
@@ -23,6 +21,7 @@ module Rex
       @remaining_amount = attrs[:amount]
 
       @next_order = nil
+      @previous_order = nil
     end
 
     def filled?

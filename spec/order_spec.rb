@@ -3,9 +3,7 @@
 RSpec.describe Rex::Order do
   describe "#filled?" do
     let(:order) do
-      instance = described_class.new(
-        amount: 100
-      )
+      instance = build(:order)
       instance.remaining_amount = remaining_amount
       instance
     end
