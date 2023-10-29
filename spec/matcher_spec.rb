@@ -41,6 +41,13 @@ RSpec.describe Rex::Matcher do
         expect(order_book.lowest_sell_order).to eq(pricier_sell_order)
         expect(order_book.lowest_sell_order.remaining_quantity).to eq(20)
       end
+
+      it "adjusts the limit volumes" do
+        instance.match(order_book)
+
+        expect(order_book.buy_limit_volumes).to eq({100 => 0})
+        expect(order_book.sell_limit_volumes).to eq({99 => 0, 100 => 20})
+      end
     end
 
     context "when order book is empty" do

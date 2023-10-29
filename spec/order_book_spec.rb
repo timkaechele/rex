@@ -13,6 +13,13 @@ RSpec.describe Rex::OrderBook do
       expect(instance.best_buy_price).to eq(100)
     end
 
+    it "adjusts the limit volume on the correct side" do
+      order = build(:order, is_buy: true, quantity: 100, remaining_quantity: 99)
+      instance.add_order(order)
+
+      expect(instance.buy_limit_volumes[order.price]).to eq(99)
+    end
+
     it "assigns an order id" do
       expect { instance.add_order(order_a) }.to change(order_a, :id).from(nil).to(1)
       expect { instance.add_order(order_b) }.to change(order_b, :id).from(nil).to(2)
@@ -141,6 +148,13 @@ RSpec.describe Rex::OrderBook do
       before do
         instance.add_order(buy_order)
         instance.add_order(sell_order)
+      end
+
+      it "adjusts the limit's volume" do
+        expect do
+          instance.cancel_order(sell_order.id)
+        end.to(change { instance.sell_limit_volumes[sell_order.price] }
+          .by(-sell_order.remaining_quantity))
       end
 
       it "does not affect the buy side" do
