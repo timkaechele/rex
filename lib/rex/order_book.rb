@@ -2,8 +2,6 @@ require "rbtree"
 
 module Rex
   class OrderBook
-    class NoMatcherProvidedError < StandardError; end
-
     def initialize(matcher: Matcher.new)
       @matcher = matcher
       @sell_side = RBTree.new
