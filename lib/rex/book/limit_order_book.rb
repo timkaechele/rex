@@ -2,7 +2,7 @@ require "rbtree"
 
 module Rex
   module Book
-    class OrderBook
+    class LimitOrderBook
       def initialize(matcher: Matcher.new)
         @matcher = matcher
         @sell_side = RBTree.new

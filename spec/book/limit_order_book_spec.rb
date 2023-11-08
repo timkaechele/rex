@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Rex::Book::OrderBook do
+RSpec.describe Rex::Book::LimitOrderBook do
   let(:instance) { described_class.new }
 
   describe "#add_order" do
