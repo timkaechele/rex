@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-RSpec.describe Rex::Matcher do
+RSpec.describe Rex::Book::Matcher do
   let(:instance) { described_class.new }
 
   describe "#match" do
-    let(:order_book) { Rex::OrderBook.new }
+    let(:order_book) { Rex::Book::OrderBook.new }
     let(:buy_order) { build(:order, price: 100, is_buy: true, quantity: 100, remaining_quantity: 100) }
     let(:cheaper_sell_order) { build(:order, price: 99, is_buy: false, quantity: 50, remaining_quantity: 50) }
     let(:pricier_sell_order) { build(:order, price: 100, is_buy: false, quantity: 70, remaining_quantity: 70) }
@@ -45,7 +45,7 @@ RSpec.describe Rex::Matcher do
 
     context "when order book is empty" do
       it "returns an empty list" do
-        expect(instance.match(Rex::OrderBook.new)).to eq([])
+        expect(instance.match(Rex::Book::OrderBook.new)).to eq([])
       end
     end
 

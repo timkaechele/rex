@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Rex::Order do
+RSpec.describe Rex::Book::Order do
   describe "#filled?" do
     let(:order) do
       instance = build(:order)

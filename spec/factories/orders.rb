@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
-  factory :order, class: Rex::Order do
+  factory :order, class: Rex::Book::Order do
     sequence(:id) { |i| i }
     sequence(:user_id) { |i| i }
     sequence(:is_buy) { |i| (i % 2).zero? }

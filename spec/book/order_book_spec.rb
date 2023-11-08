@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Rex::OrderBook do
+RSpec.describe Rex::Book::OrderBook do
   let(:instance) { described_class.new }
 
   describe "#add_order" do
@@ -57,7 +57,7 @@ RSpec.describe Rex::OrderBook do
 
   describe "add_and_match_order" do
     context "when matcher is given" do
-      let(:matcher) { instance_double(Rex::Matcher) }
+      let(:matcher) { instance_double(Rex::Book::Matcher) }
       let(:instance) { described_class.new(matcher: matcher) }
       let(:order) { build(:order, is_buy: true, price: 100) }
 
@@ -93,7 +93,7 @@ RSpec.describe Rex::OrderBook do
     end
   end
 
-  describe "#lowest_sell_Order" do
+  describe "#lowest_sell_order" do
     context "when there is nothing in the book" do
       it "returns nil " do
         expect(instance.highest_buy_order).to eq(nil)

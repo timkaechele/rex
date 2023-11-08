@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Rex::Limit do
+RSpec.describe Rex::Book::Limit do
   let(:instance) { described_class.new(100) }
   let(:order_a) { build(:order) }
   let(:order_b) { build(:order) }
