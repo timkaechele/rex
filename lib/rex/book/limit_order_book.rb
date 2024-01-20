@@ -8,7 +8,6 @@ module Rex
         @sell_side = RBTree.new
         @buy_side = RBTree.new
         @order_ids = {} # order_id => order
-        @current_trade_id = 0
         @current_order_id = 0
       end
 
@@ -66,10 +65,6 @@ module Rex
 
       def best_sell_price
         sell_side.first&.[](0)
-      end
-
-      def next_trade_id
-        @current_trade_id += 1
       end
 
       private

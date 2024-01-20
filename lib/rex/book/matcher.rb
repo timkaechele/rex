@@ -1,6 +1,10 @@
 module Rex
   module Book
     class Matcher
+      def initialize
+        @current_trade_id = 0
+      end
+
       def match(order_book)
         trades = []
         highest_buy_order = order_book.highest_buy_order
@@ -10,7 +14,7 @@ module Rex
         while highest_buy_order.price >= lowest_sell_order.price
           max_quantity = min(highest_buy_order.remaining_quantity, lowest_sell_order.remaining_quantity)
           trade = Trade.new(
-            id: order_book.next_trade_id,
+            id: next_trade_id,
             buy_order: highest_buy_order,
             sell_order: lowest_sell_order,
             quantity: max_quantity,
@@ -31,6 +35,10 @@ module Rex
       end
 
       private
+
+      def next_trade_id
+        @current_trade_id += 1
+      end
 
       def min(a, b)
         return a if a < b

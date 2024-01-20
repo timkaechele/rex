@@ -150,12 +150,4 @@ RSpec.describe Rex::Book::LimitOrderBook do
       end
     end
   end
-
-  describe "#next_trade_id" do
-    it "returns an increasing trade id" do
-      expect(instance.next_trade_id).to eq(1)
-      expect(instance.next_trade_id).to eq(2)
-      expect(instance.next_trade_id).to eq(3)
-    end
-  end
 end
