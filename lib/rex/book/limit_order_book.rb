@@ -43,6 +43,7 @@ module Rex
         end
 
         order_ids.delete(order.id)
+        order
       end
 
       alias_method :cancel_order, :remove_order

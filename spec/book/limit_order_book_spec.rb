@@ -109,6 +109,12 @@ RSpec.describe Rex::Book::LimitOrderBook do
       instance.add_order(buy_order)
     end
 
+    it "returns the cancelled order" do
+      order = instance.cancel_order(buy_order.id)
+
+      expect(order).to eq(buy_order)
+    end
+
     context "when the order id is unknown" do
       it "returns nil" do
         expect(instance.cancel_order(-1)).to eq(nil)
