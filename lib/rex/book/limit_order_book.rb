@@ -23,6 +23,10 @@ module Rex
 
       def add_and_match_order(order)
         add_order(order)
+        match
+      end
+
+      def match
         @matcher.match(self)
       end
 
