@@ -1,0 +1,19 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require "bundler/setup"
+require "rex"
+
+puts <<~STR
+                __
+              / _)
+     _.----._/ /
+    /         /
+ __/ (  | (  |
+/__.-'|_|--|_|
+
+Ruby Exchange (Rex)
+Author:  Tim Kächele
+License: AGPLv3
+STR
+

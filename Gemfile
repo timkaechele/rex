@@ -14,3 +14,10 @@ gem "standard", "~> 1.3"
 gem "factory_bot", "~> 6.3"
 
 gem "simplecov", "~> 0.22.0", require: false
+
+gem "benchmark-ips"
+gem "oj"
+
+gem "stackprof"
+gem "memory_profiler"
+gem "ruby-prof"

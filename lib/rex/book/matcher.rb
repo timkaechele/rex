@@ -28,7 +28,7 @@ module Rex
           highest_buy_order = order_book.highest_buy_order
           lowest_sell_order = order_book.lowest_sell_order
 
-          return trades if highest_buy_order.nil? || lowest_sell_order.nil?
+          break if highest_buy_order.nil? || lowest_sell_order.nil?
         end
 
         trades

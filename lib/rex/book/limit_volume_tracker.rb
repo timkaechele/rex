@@ -1,7 +1,7 @@
 module Rex
   module Book
     class LimitVolumeTracker
-      LimitVolumeChange = Struct.new(:side, :price, :new_volume)
+      LimitVolumeChange = Struct.new(:side, :price, :quantity)
 
       attr_reader :volumes
 
