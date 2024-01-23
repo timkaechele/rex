@@ -17,3 +17,47 @@ Author:  Tim Kächele
 License: AGPLv3
 STR
 
+matching_engine_inbox_pipe = EventMachine::Channel.new
+matching_engine_outbox_pipe = EventMachine::Channel.new
+matching_engine = Rex::Server::MatchingEngine.new(
+  matching_engine_inbox_pipe,
+  matching_engine_outbox_pipe
+)
+
+message_processor_inflow_pipe = EventMachine::Channel.new
+
+class Serializer
+  def serialize(obj)
+    obj = if obj.is_a?(Array)
+      obj = {
+        type: "response",
+        name: "validation.errors",
+        data: obj.map(&:to_h)
+      }
+    else
+      {
+        type: "response",
+        name: obj.class.name.split("::").last,
+        data: obj.to_h
+      }
+    end
+    obj.to_json
+  end
+end
+
+message_broker = Rex::Server::MessageBroker.new(Serializer.new)
+
+message_processor = Rex::Server::MessageProcessor.new(
+  matching_engine_inbox_pipe,
+  matching_engine_outbox_pipe,
+  message_broker,
+  message_processor_inflow_pipe
+)
+
+websocket_server = Rex::Server::WebsocketServer.new(message_broker, message_processor_inflow_pipe)
+
+EM.run {
+  message_processor.start
+  matching_engine.start
+  websocket_server.start
+}

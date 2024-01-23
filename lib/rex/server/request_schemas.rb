@@ -14,6 +14,9 @@ module Rex
 
       REQUEST_NAME = {
         type: :object,
+        required: [
+          "name"
+        ],
         properties: {
           name: REQUEST_ENUM
         }

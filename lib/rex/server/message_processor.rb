@@ -11,6 +11,7 @@ module Rex
 
       def start
         @inbox_subscription_id = @inbox_channel.subscribe do |conn_id, message|
+          puts "<<- [#{conn_id}]: #{message}"
           process_message(conn_id, message)
         end
 

@@ -40,6 +40,7 @@ module Rex
         return unless connection
 
         @connection_message_counter[connection_id] += 1
+        puts "->> [#{connection_id}]: #{message.inspect}"
         connection.send(serialize(message))
       end
 
