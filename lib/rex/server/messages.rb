@@ -4,6 +4,7 @@ module Rex
       AuthenticateRequest = Struct.new(:user_id)
       AuthenticatedEvent = Struct.new(:user_id)
 
+      FetchOrders = Struct.new(:user_id)
       CreateOrderRequest = Struct.new(:user_id, :side, :price, :quantity)
       CancelOrderRequest = Struct.new(:user_id, :order_id)
       FetchOrderBookRequest = Struct.new(:requester_id)
