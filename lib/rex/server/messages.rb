@@ -27,6 +27,7 @@ module Rex
         :user_id,
         :side,
         :quantity,
+        :remaining_quantity,
         :price
       )
 

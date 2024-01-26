@@ -50,6 +50,7 @@ module Rex
             order.user_id,
             order.is_buy ? :buy : :sell,
             order.quantity,
+            order.remaining_quantity,
             order.price
           )
         )
