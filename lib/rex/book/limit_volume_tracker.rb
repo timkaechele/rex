@@ -21,6 +21,16 @@ module Rex
         ]
       end
 
+      def each
+        volumes.each do |key, value|
+          yield LimitVolumeChange.new(
+            key[0] ? :buy : :sell,
+            key[1],
+            value
+          )
+        end
+      end
+
       def remove_order(order)
         volumes[[order.is_buy, order.price]] -= order.remaining_quantity
 

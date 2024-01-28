@@ -8,7 +8,9 @@ module Rex
           "order.create",
           "order.cancel",
           "orderbook.fetch",
-          "authenticate"
+          "orders.fetch",
+          "authenticate",
+          "trades.fetch"
         ]
       }
 
@@ -81,7 +83,15 @@ module Rex
         }
       }
 
+      EMPTY_ARGUMENTS = {
+        type: :object,
+        properties: {}
+      }
+
       CANCEL_ORDER = request(CANCEL_ORDER_ARGUMENTS)
+      FETCH_ORDERBOOK = request(EMPTY_ARGUMENTS)
+      FETCH_ORDERS = request(EMPTY_ARGUMENTS)
+      FETCH_TRADES = request(EMPTY_ARGUMENTS)
 
       AUTHENTICATE_ARGUMENTS = {
         type: :object,
@@ -100,7 +110,9 @@ module Rex
       SCHEMA_REQUEST_NAME_MAPPING = {
         "order.create" => CREATE_ORDER,
         "order.cancel" => CANCEL_ORDER,
-        "orderbook.fetch" => {},
+        "orders.fetch" => FETCH_ORDERS,
+        "trades.fetch" => FETCH_TRADES,
+        "orderbook.fetch" => FETCH_ORDERBOOK,
         "authenticate" => AUTHENTICATE
       }
     end

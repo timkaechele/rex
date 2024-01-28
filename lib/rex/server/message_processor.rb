@@ -50,6 +50,21 @@ module Rex
           message.user_id = user_id
 
           @matching_engine_inbox.push(message)
+        in Messages::FetchOrderBookRequest => message
+          user_id = @message_broker.user_id_for_connection(conn_id)
+          # Todo(Tim): handle user_id absence
+          message.user_id = user_id
+
+          @matching_engine_inbox.push(message)
+        in Messages::FetchOrdersRequest => message
+          user_id = @message_broker.user_id_for_connection(conn_id)
+          message.user_id = user_id
+
+          @matching_engine_inbox.push(message)
+        in Messages::FetchTradesRequest => message
+          message.user_id = conn_id
+
+          @matching_engine_inbox.push(message)
         in Messages::AuthenticateRequest => message
           @message_broker.associate_connection_with_user(conn_id, message.user_id)
         end
@@ -65,8 +80,14 @@ module Rex
           @message_broker.send_to_user(event.user_id, event)
         when Messages::TradeEvent
           @message_broker.send_to_all(event)
+        when Messages::TradeFetchEvent
+          @message_broker.send_to_connection(event.user_id, event)
         when Messages::OrderBookUpdateEvent
           @message_broker.send_to_all(event)
+        when Messages::OrderBookFetchEvent
+          @message_broker.send_to_user(event.user_id, event)
+        when Messages::OrderFetchEvent
+          @message_broker.send_to_user(event.user_id, event)
         end
       end
     end

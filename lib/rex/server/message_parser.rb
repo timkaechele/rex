@@ -40,7 +40,11 @@ module Rex
             parsed_message["args"]["id"]
           )
         when "orderbook.fetch"
-          FetchOrderBookRequest.new(nil)
+          Messages::FetchOrderBookRequest.new(nil)
+        when "orders.fetch"
+          Messages::FetchOrdersRequest.new(nil)
+        when "trades.fetch"
+          Messages::FetchTradesRequest.new(nil)
         when "authenticate"
           Messages::AuthenticateRequest.new(
             parsed_message["args"]["user_id"]

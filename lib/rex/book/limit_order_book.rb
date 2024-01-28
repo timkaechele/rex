@@ -8,6 +8,7 @@ module Rex
         @sell_side = RBTree.new
         @buy_side = RBTree.new
         @order_ids = {} # order_id => order
+        @user_order_ids = {} # user_id => Set<OrderId>
         @current_order_id = 0
       end
 
@@ -18,7 +19,10 @@ module Rex
         side[order.price] ||= Limit.new(order.price)
         side[order.price].add_order(order)
 
+
         order_ids[order.id] = order
+        user_order_ids[order.user_id] ||= Set.new()
+        user_order_ids[order.user_id].add(order.id)
       end
 
       def add_and_match_order(order)
@@ -43,6 +47,7 @@ module Rex
         end
 
         order_ids.delete(order.id)
+        user_order_ids[order.user_id]&.delete(order.id)
         order
       end
 
@@ -72,12 +77,19 @@ module Rex
         sell_side.first&.[](0)
       end
 
+      def orders_for_user(user_id)
+        (@user_order_ids[user_id] || []).map do |order_id|
+          order_ids[order_id]
+        end
+      end
+
       private
 
       attr_reader(
         :order_ids,
         :buy_side,
-        :sell_side
+        :sell_side,
+        :user_order_ids
       )
 
       def next_order_id
