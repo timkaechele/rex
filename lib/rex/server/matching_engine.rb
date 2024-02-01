@@ -163,6 +163,8 @@ module Rex
 
       def cancel_order(order_id)
         order = @order_book.remove_order(order_id)
+        return unless order
+
         @outbox.push(
           Messages::OrderCancelledEvent.new(
             order.id,
